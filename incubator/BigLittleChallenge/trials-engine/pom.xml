@@ -73,12 +73,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.gardler.biglittlechallenge</groupId>
-			<artifactId>trials-ai</artifactId>
-			<version>${trials.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-grizzly2-http</artifactId>
 		</dependency>
