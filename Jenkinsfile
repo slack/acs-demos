@@ -2,9 +2,9 @@ pipeline {
   agent any
 
   stages {
-    stage('Build') {
+    stage('Build BigLittleChallenge') {
       steps {
-        sh './build.sh'
+        sh './incubator/BigLittleChallenge/build.sh'
       }
     }
   }
