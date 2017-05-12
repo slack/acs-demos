@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Simple Worker/Consumer Demo</title>
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="/js/queueData.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        <!-- plotSummary({{ error }}, {{ warning }}, {{ debug }}, {{ info }}); -->
+        plotQueue("{{ queue_name }}");
+        document.getElementById('manage-containers').src = "http://" + window.location.hostname + ":8080/service/marathon/ui/#/group/%2Fmicroscaling";
+      });
+    </script>
+    <style type="text/css">
+      #wrap {
+        display: flex;
+      }
+      #left-col {
+        width: 320px;
+      }
+      #right-col {
+        flex: 1;
+      }
+      #manage-containers {
+        height: 800px;
+        width: 100%;
+      }
+      </style>
+  </head>
+  <body>
+    <title>ACS Logging Demo</title>
+
+    <div id="wrap">
+      <div id="left-col">
+	<!-- Submit a message via the rest-enque service
+	<form method="post" action="/send">
+	  <label>Message</label><input type="text" name="message"></input>
+	  <input type="submit"></input>
+	</form>
+	-->
+	
+	<h2>
+	  Queue Length: <span id="queue_length">Retrieving...</span>
+	</h2>
+	<h2>
+	  Processing Time: <span id="processing_time">Retrieving...</span> s
+	</h2>
+
+	<div id="lengthChart" style="width: 300px; height: 300px;">
+	  <!-- Plotly chart will be drawn inside this DIV -->
+	</div>
+
+	<!--
+	<h2>Summary Data</h2>
+	<div id="summaryChart" style="width: 480px; height: 400px;">
+	</div>
+	-->
+      </div>
+      
+      <div id="right-col">	
+        <iframe id="manage-containers"></iframe>
+      </div>
+    </div>
+  </body>
+</html>
