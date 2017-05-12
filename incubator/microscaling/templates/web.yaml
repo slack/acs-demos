@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: microscaling-web
+  namespace: microscaling
+  labels:
+    app: microscaling-web
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: microscaling-web
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: microscaling-web
+  namespace: microscaling
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: microscaling-web
+    spec:
+      imagePullSecrets:
+        - name: microscaling-registry-secret
+      containers:
+      - name: web
+        image: acsftw.azurecr.io/microscaling/acs-logging-test-web:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+          - name: AZURE_STORAGE_ACCOUNT_NAME
+            value: acsftw
+          - name: AZURE_STORAGE_ACCOUNT_KEY
+            value: ""
+          - name: AZURE_STORAGE_QUEUE_NAME
+            value: ""
+          - name: AZURE_STORAGE_SUMMARY_TABLE_NAME
+            value: ""
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: microscaling-query
+  namespace: microscaling
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: microscaling-query
+    spec:
+      imagePullSecrets:
+        - name: microscaling-registry-secret
+      containers:
+      - name: query
+        image: acsftw.azurecr.io/microscaling/acs-logging-test-rest-query:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+          - name: AZURE_STORAGE_ACCOUNT_NAME
+            value: ""
+          - name: AZURE_STORAGE_ACCOUNT_KEY
+            value: ""
+          - name: AZURE_STORAGE_SUMMARY_TABLE_NAME
+            value: ""
