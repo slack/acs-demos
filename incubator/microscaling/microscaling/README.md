@@ -17,3 +17,13 @@ calcualted, all it cares about is the value.
 
 The values returned are used to make a decision about whether to scale
 up/down or remain unchanged.
+
+## Kubernetes
+
+A Helm chart is included in the `chart` directory which allows you to quickly
+install the microscaling demo on Kubernetes.
+
+```
+$ helm install chart/microscaling --name=microscaling --namespace=microscaling \
+--set config.storageAccountName=<STORAGE_ACCOUNT_NAME>,config.storageAccountKey='<STORAGE_ACCOUNT_KEY>,config.storageQueueName=<QUEUE_NAME>,config.storageTableName=<TABLE_NAME>
+```

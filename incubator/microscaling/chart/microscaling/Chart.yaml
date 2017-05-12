@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for the microscaling demo on Kubernetes
+name: microscaling
+version: 0.1.0

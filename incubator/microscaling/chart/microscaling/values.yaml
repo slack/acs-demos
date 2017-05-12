@@ -1,0 +1,26 @@
+replicaCount: 1
+
+config:
+  analyzerSleepTime: "2"
+  storageAccountName: ""
+  storageAccountKey: ""
+  storageQueueName: ""
+  storageTableName: ""
+  slackChannelName: ""
+  slackWebhookUrl: ""
+  dockerConfig: ""
+
+images:
+  pullPolicy: IfNotPresent
+  web:
+    imageUrl: acsftw.azurecr.io/microscaling/acs-logging-test-web
+    imageTag: latest
+  producer:
+    imageUrl: acsftw.azurecr.io/microscaling/acs-logging-test-simulate
+    imageTag: latest
+  analyzer:
+    imageUrl: acsftw.azurecr.io/microscaling/acs-logging-test-analyze
+    imageTag: latest
+  query:
+    imageUrl: acsftw.azurecr.io/microscaling/acs-logging-test-rest-query
+    imageTag: latest
