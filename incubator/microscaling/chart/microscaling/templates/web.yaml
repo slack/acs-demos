@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: microscaling-web
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: microscaling-web
+    spec:
+      imagePullSecrets:
+        - name: microscaling-registry-secret
+      containers:
+      - name: web
+        image: "{{ .Values.images.web.imageUrl }}:{{ .Values.images.web.imageTag }}"
+        imagePullPolicy: "{{ .Values.images.pullPolicy }}"
+        ports:
+        - containerPort: 80
+        env:
+{{ include "microscaling-env" . | indent 10 }}

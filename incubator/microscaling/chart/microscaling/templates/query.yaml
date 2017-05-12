@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: microscaling-query
+  namespace: microscaling
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: microscaling-query
+    spec:
+      imagePullSecrets:
+        - name: microscaling-registry-secret
+      containers:
+      - name: query
+        image: "{{ .Values.images.query.imageUrl }}:{{ .Values.images.query.imageTag }}"
+        imagePullPolicy: "{{ .Values.images.pullPolicy }}"
+        ports:
+        - containerPort: 80
+        env:
+{{ include "microscaling-env" . | indent 10 }}

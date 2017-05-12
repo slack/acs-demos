@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: microscaling-producer
+  namespace: microscaling
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: microscaling-producer
+    spec:
+      imagePullSecrets:
+        - name: microscaling-registry-secret
+      containers:
+      - name: web
+        image: "{{ .Values.images.producer.imageUrl }}:{{ .Values.images.producer.imageTag }}"
+        imagePullPolicy: "{{ .Values.images.pullPolicy }}"
+        ports:
+        - containerPort: 80
+        env:
+{{ include "microscaling-env" . | indent 10 }}
