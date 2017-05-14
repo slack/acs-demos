@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: microscaling-analyzer
+  namespace: microscaling
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: microscaling-analyzer
+    spec:
+      imagePullSecrets:
+        - name: microscaling-registry-secret
+      containers:
+      - name: web
+        image: "{{ .Values.images.analyzer.imageUrl }}:{{ .Values.images.analyzer.imageTag }}"
+        imagePullPolicy: "{{ .Values.images.pullPolicy }}"
+        ports:
+        - containerPort: 80
+        env:
+{{ include "microscaling-env" . | indent 10 }}
